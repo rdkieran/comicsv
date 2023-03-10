@@ -25,7 +25,7 @@ def parse_csv(filename):
                 if cell != "":
                     ## Space Story: Piss and Shit Olympics
                     if   column == 1: 
-                        file_name = 'space-story-1-'+str(row-2).zfill(3)
+                        file_name = 'space-story-1-'+str(row-2+1).zfill(3)
                     elif column == 3:
                         file_link = cell
                         name_file = (file_name, file_link)
@@ -33,7 +33,7 @@ def parse_csv(filename):
                     
                     ## Space Story: Termina IX
                     elif column == 4: 
-                        file_name = 'space-story-2-'+str(row-2).zfill(3)
+                        file_name = 'space-story-2-'+str(row-2+1).zfill(3)
                     elif column == 6:
                         file_link = cell
                         name_file = (file_name, file_link)
@@ -41,7 +41,7 @@ def parse_csv(filename):
 
                     ## Self-Destruct Sequence
                     elif column == 7: 
-                        file_name = 'self-destruct-1-'+str(row-2).zfill(3)
+                        file_name = 'self-destruct-1-'+str(row-2+1).zfill(3)
                     elif column == 9:
                         file_link = cell
                         name_file = (file_name, file_link)
@@ -49,7 +49,7 @@ def parse_csv(filename):
                     
                     ## Loose End
                     elif column == 10: 
-                        file_name = 'loose-end-1-'+str(row-2).zfill(3)
+                        file_name = 'loose-end-1-'+str(row-2+1).zfill(3)
                     elif column == 12:
                         file_link = cell
                         name_file = (file_name, file_link)
@@ -57,7 +57,7 @@ def parse_csv(filename):
                     
                     ## Rat Boy Holiday
                     elif column == 13: 
-                        file_name = 'holiday-1-'+str(row-2).zfill(3)
+                        file_name = 'holiday-1-'+str(row-2+1).zfill(3)
                     elif column == 15:
                         file_link = cell
                         name_file = (file_name, file_link)
@@ -65,7 +65,7 @@ def parse_csv(filename):
 
                     ## Rat Boy Hourlies 2022
                     elif column == 16: 
-                        file_name = 'hourlies-22-1-'+str(row-2).zfill(3)
+                        file_name = 'hourlies-22-1-'+str(row-2+1).zfill(3)
                     elif column == 18:
                         file_link = cell
                         name_file = (file_name, file_link)
@@ -73,7 +73,7 @@ def parse_csv(filename):
                     
                     ## Rat Boy Hourlies 2023
                     elif column == 19: 
-                        file_name = 'hourlies-23-1-'+str(row-2).zfill(3)
+                        file_name = 'hourlies-23-1-'+str(row-2+1).zfill(3)
                     elif column == 21:
                         file_link = cell
                         name_file = (file_name, file_link)
@@ -85,15 +85,14 @@ def parse_csv(filename):
 
     return all_comics
 
-def write_to_file(all_comics):
+def write_to_file(all_comics, filename):
     # all_comics = [[comic], [comic]]
     #  comic     = [comic_title, (page), (page)]
     #    page    = (name, link)
 
     comic_titles = ['Space Story: Piss and Shit Olympics', 'Space Story: Termina IX', 'Self Destruct Sequence', 'Loose End', 'Rat Boy: Holiday', 'Rat Boy: Hourlies 2022', 'Rat Boy: Hourlies 2023']
 
-    destination_file = 'all-page-locations.txt'
-    with open(destination_file, 'w') as f:
+    with open(filename, 'w') as f:
         for comic in range(len(all_comics)):
             f.write(comic_titles[comic])
             for page in all_comics[comic]:
@@ -103,9 +102,11 @@ def write_to_file(all_comics):
             f.write('\n\n')
 
 def main():
-    filename = 'comic-embed-links.csv'
-    all_comics = parse_csv(filename)
-    write_to_file(all_comics)
+    csv_file = 'example.csv'
+    destination_file = 'example.txt'
+
+    all_comics = parse_csv(csv_file)
+    write_to_file(all_comics, destination_file)
 
     print("complete")
 
