@@ -83,6 +83,8 @@ def write_html(all_pages, project_name, destination_path):
     template = 'convert-to-html\\template.html'
     template = ''.join(open(template).readlines())
 
+    destination_paths = []
+
     page_number = 1
     number_of_pages = len(all_pages)
     page_number_digit_count = len(str(number_of_pages))
@@ -96,10 +98,17 @@ def write_html(all_pages, project_name, destination_path):
         page_html = (project_name+', Page '+str(page_number)).join(page_html.split('[[ALT]]'))
 
         destination_file = destination_path+'\\'+str(page_number).zfill(page_number_digit_count)+'.html'
+        destination_paths.append(destination_file)
         with open(destination_file, 'w') as f:
             f.write(page_html)
 
         page_number += 1
+    
+    destination_files = []
+    for file_path in destination_paths:
+        destination_files.append(file_path.split('\\')[-1])
+
+    return destination_files
             
 def main():
     project_name = input("comic name: ")
@@ -109,9 +118,28 @@ def main():
 
     all_pages = parse_csv(csv_file)
     write_to_file(all_pages, project_name, destination_path)
-    write_html(all_pages, project_name, destination_path)
 
+    html = True
+    while html == True:
+        user_input = input("\ngenerate HTML files from template? (Y/n): ").lower()
+        if user_input.startswith('y') == True:
+            destination_files = write_html(all_pages, project_name, destination_path)
+            html = False
+        elif user_input.startswith('n') == True:
+            html = False
+        else:
+            print('\ninvalid entry: "'+user_input+'"')
+
+
+    # print message to user with file details
     destination_file = '-'.join(project_name.split(' '))+'.txt'
-    print("\ncomplete")
+    print("\ngenerated .txt list file in folder: '"+destination_path.split('\\')[-1]+"'\n > "+destination_file+'\n')
+    # print message for generated html files
+    if user_input.startswith('y') == True:
+        print("generated .html files in folder: '"+destination_path.split('\\')[-1]+"'")
+        for file in destination_files:
+            print(" > "+file)
+        print('')
+    
 
 main()
