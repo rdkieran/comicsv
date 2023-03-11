@@ -1,7 +1,8 @@
 # comicsv (Comic CSV)
 
 Developed to generate a list of embed links and basic HTML files for comic pages stored on on Google Drive.
-readme under construction
+
+proper README at some point
 
 #### google app script excerpt for getting file info
 ```
