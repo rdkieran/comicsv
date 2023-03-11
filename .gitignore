@@ -1,1 +1,4 @@
 space-story-pages
+venv
+extract-list-from-sheets.py
+google-api.py
